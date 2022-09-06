@@ -14,15 +14,34 @@ const defaultProps = {
 const factory = (props: Partial<React.ComponentProps<typeof Stepper>>) =>
   render(<Stepper {...defaultProps} {...props} />);
 
+// TODO: remove any
 const mockStepsModel = [
   {
     heading: "First step heading",
+    content: {
+      component: (props: any) => (
+        <div>first step component {props.testProp}</div>
+      ),
+      props: { testProp: "1-test-props" },
+    },
   },
   {
     heading: "Second step heading",
+    content: {
+      component: (props: any) => (
+        <div>second step component {props.testProp}</div>
+      ),
+      props: { testProp: "2-test-props" },
+    },
   },
   {
     heading: "Third step heading",
+    content: {
+      component: (props: any) => (
+        <div>third step component {props.testProp}</div>
+      ),
+      props: { testProp: "3-test-props" },
+    },
   },
 ];
 
@@ -93,4 +112,16 @@ test("fires submit callback event on submit button click", async () => {
   await user.click(submitButton);
 
   expect(submitHandler).toHaveBeenCalled();
+});
+
+test("renders first step content when first step is active", () => {
+  factory({ activeStep: 0, stepperModel: mockStepsModel });
+
+  expect(screen.getByText("first step component 1-test-props")).toBeVisible();
+});
+
+test("renders second step content when second step is active", () => {
+  factory({ activeStep: 1, stepperModel: mockStepsModel });
+
+  expect(screen.getByText("second step component 2-test-props")).toBeVisible();
 });

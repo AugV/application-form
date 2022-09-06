@@ -1,5 +1,9 @@
 type StepModel = {
   heading: string;
+  content: {
+    component: (props: Record<string, unknown>) => JSX.Element;
+    props: Record<string, unknown>;
+  };
 };
 
 type StepperProps = {
@@ -18,6 +22,8 @@ export const Stepper = ({
   stepperModel,
 }: StepperProps) => {
   const currentStep = stepperModel[activeStep];
+  const ContentComponent = currentStep.content.component;
+  const contentProps = currentStep.content.props;
   const isFirstStep = activeStep === 0;
   const isLastStep = activeStep === stepperModel.length - 1;
 
@@ -25,6 +31,9 @@ export const Stepper = ({
     <>
       {/* TODO: extract heading */}
       <h2>{currentStep.heading}</h2>
+
+      <ContentComponent {...contentProps} />
+
       {/* TODO: extract buttons */}
       {!isFirstStep && <button onClick={backHandler}>Back</button>}
       {isLastStep ? (
