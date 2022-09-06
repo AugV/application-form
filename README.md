@@ -14,6 +14,8 @@ It's a stepper type form for client's business to provide company data and conta
 3) SCSS modules for capable styling syntax and scoped styles
 4) Jest (with friends) for unit testing
 
+App is generated using CRA, so all the configuration is in [react-scripts](https://github.com/facebook/create-react-app/tree/main/packages/react-scripts)
+
 ## Scripts
 `npm start` - to launch local dev server and serve the app
 `npm test` - to launch unit tests
