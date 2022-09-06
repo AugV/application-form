@@ -1,7 +1,13 @@
 import { render, screen } from "@testing-library/react";
+import React from "react";
 import { TextField } from "./text-field";
 
-const factory = () => render(<TextField />);
+const defaultProps = {
+  label: "default-label",
+};
+
+const factory = (props?: React.ComponentProps<typeof TextField>) =>
+  render(<TextField {...defaultProps} {...props} />);
 
 /* A topic of disscussion if such tests are needed since it's just a wrapper for component from component library
     However if we do have such tests, 
@@ -16,7 +22,7 @@ test("should render input element", () => {
 });
 
 test("should have label", () => {
-  factory();
+  factory({ label: "test-label" });
 
   expect(screen.getByLabelText("test-label")).toBeVisible();
 });
