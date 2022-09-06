@@ -5,6 +5,7 @@ import userEvent from "@testing-library/user-event";
 
 const defaultProps = {
   label: "default-label",
+  onChange: () => {}
 };
 
 const factory = (props?: Partial<React.ComponentProps<typeof TextField>>) =>
