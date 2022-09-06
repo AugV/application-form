@@ -1,7 +1,6 @@
-import React from "react";
 import { TextField } from "../text-field/text-field";
 
-const FieldType = { TEXT_FIELD: "text-field" } as const;
+export const FieldType = { TEXT_FIELD: "text-field" } as const;
 
 type FieldModel = {
   id: string;
@@ -10,6 +9,7 @@ type FieldModel = {
 };
 
 type FormGeneratorProps = {
+  name: string;
   formModel: FieldModel[];
 };
 
@@ -20,12 +20,12 @@ const FieldComponents = {
   ),
 } as const;
 
-export const FormGenerator = ({ formModel }: FormGeneratorProps) => {
+export const FormGenerator = ({ name, formModel }: FormGeneratorProps) => {
   return (
-    <>
+    <form name={name}>
       {formModel.map((fieldModel) => {
         return FieldComponents[fieldModel.type](fieldModel);
       })}
-    </>
+    </form>
   );
 };
