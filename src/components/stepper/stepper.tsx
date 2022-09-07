@@ -1,4 +1,5 @@
 import { Typography } from "@mui/material";
+import clsx from "clsx";
 import { Button } from "../button/button";
 import styles from "./stepper.module.scss";
 
@@ -40,7 +41,13 @@ export const Stepper = ({
       <section className={styles.contentContainer}>
         <ContentComponent {...contentProps} />
 
-        <nav>
+        <nav
+          className={clsx({
+            [styles.navigationContainer]: true,
+            [styles.firstStep]: isFirstStep,
+            [styles.isLastStep]: isLastStep,
+          })}
+        >
           {!isFirstStep && <Button onClick={backHandler}>Back</Button>}
           {isLastStep ? (
             <Button onClick={submitHandler}>Submit</Button>

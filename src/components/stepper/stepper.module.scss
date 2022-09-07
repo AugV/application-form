@@ -9,6 +9,19 @@
 }
 
 .contentContainer {
-    text-align: center;
-    padding: 5rem;
+  text-align: center;
+  padding: 5rem;
+}
+
+.navigationContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.firstStep {
+  justify-content: end;
+}
+
+.lastStep {
+  justify-content: start;
 }
