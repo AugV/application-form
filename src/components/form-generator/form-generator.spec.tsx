@@ -21,6 +21,8 @@ describe("FormGenerator component", () => {
             id: "test-field-id",
             label: "Test text field",
             type: FieldType.TEXT_FIELD,
+            setField: jest.fn(),
+            getField: jest.fn(() => "field-value"),
           },
         ],
       });
@@ -32,6 +34,10 @@ describe("FormGenerator component", () => {
 
     it("should render text field", () => {
       expect(screen.getByLabelText("Test text field")).toBeVisible();
+    });
+
+    it("should provide value for text field", () => {
+      expect(screen.getByDisplayValue("field-value")).toBeVisible();
     });
   });
 });

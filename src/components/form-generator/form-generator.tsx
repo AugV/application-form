@@ -6,6 +6,8 @@ type FieldModel = {
   id: string;
   label: string;
   type: typeof FieldType[keyof typeof FieldType];
+  setField: (fieldId: string, fieldValue: string) => void;
+  getField: (fieldId: string) => string;
 };
 
 type FormGeneratorProps = {
@@ -14,9 +16,13 @@ type FormGeneratorProps = {
 };
 
 const FieldComponents = {
-  [FieldType.TEXT_FIELD]: ({ id, label }: FieldModel) => (
-    // TODO: provide callback to mutate store and value from the store
-    <TextField key={id} label={label} onChange={() => {}} />
+  [FieldType.TEXT_FIELD]: ({ id, label, setField, getField }: FieldModel) => (
+    <TextField
+      key={id}
+      label={label}
+      onChange={(event) => setField(id, event.currentTarget.value)}
+      value={getField(id)}
+    />
   ),
 } as const;
 

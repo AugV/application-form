@@ -4,7 +4,7 @@ import { ChangeEvent } from "react";
 type TextFieldProps = {
   label: string;
   value?: string;
-  onChange: (event: ChangeEvent) => void; 
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void; 
 };
 
 /* Why not use MuiTextField directly? 
