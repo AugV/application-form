@@ -1,12 +1,13 @@
 import { TextField as MuiTextField } from "@mui/material";
+import { PayloadAction } from "@reduxjs/toolkit";
 import { ChangeEvent } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 
 type TextFieldProps = {
   label: string;
   selector: (state: RootState) => string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => PayloadAction<{key: string, value: string}>;
 };
 
 /* Why not use MuiTextField directly? 
@@ -23,5 +24,11 @@ export const TextField = ({
 }: TextFieldProps) => {
   // Too coupled to redux, I don't like it, but didn't want to trigger re-render high up and have to inject the value somehow
   const value = useSelector(selector);
-  return <MuiTextField label={label} value={value} onChange={onChange} />;
+  const dispatch = useDispatch();
+  
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    dispatch(onChange(event))
+  }
+
+  return <MuiTextField label={label} value={value} onChange={handleChange} />;
 };

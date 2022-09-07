@@ -6,7 +6,7 @@ import { renderWithProviders } from "../../utils/test-utils";
 
 const defaultProps = {
   label: "default-label",
-  onChange: () => {},
+  onChange: () => ({ payload: { key: "", value: "" }, type: "" }),
   selector: () => "",
 };
 
@@ -30,7 +30,7 @@ test("renders input element", () => {
 });
 
 test("renders provided text value", () => {
-  factory({ selector: () => "test-value"});
+  factory({ selector: () => "test-value" });
 
   expect(screen.getByDisplayValue("test-value")).toBeVisible();
 });
@@ -43,7 +43,7 @@ test("has label", () => {
 
 test("fires change callback when value is edited", async () => {
   const user = userEvent.setup();
-  const mockCallback = jest.fn();
+  const mockCallback = jest.fn(() => ({ payload: { key: "", value: "" }, type: "" }));
   factory({ label: "test-label", onChange: mockCallback });
 
   const inputField = screen.getByLabelText("test-label");

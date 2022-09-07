@@ -10,6 +10,7 @@ export const applicationFormSlice = createSlice({
   name: "application-form-slice",
   initialState,
   reducers: {
+    // TODO: separate setField and createField, to add guard if there are duplicating field names
     setField: (
       state,
       action: PayloadAction<{ key: string; value: string }>

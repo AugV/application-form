@@ -25,7 +25,7 @@ export const Stepper = ({
   const ContentComponent = currentStep.content.component;
   const contentProps = currentStep.content.props;
   const isFirstStep = activeStep === 0;
-  const isLastStep = activeStep === stepperModel.length - 1;
+  const isLastStep = activeStep === stepperModel.length-1;
 
   return (
     <>

@@ -16,16 +16,18 @@ type FormGeneratorProps = {
 };
 
 const FieldComponents = {
-  [FieldType.TEXT_FIELD]: ({ id, label }: FieldModel) => (
-    <TextField
-      key={id}
-      label={label}
-      onChange={(event) =>
-        setField({ key: id, value: event.currentTarget.value })
-      }
-      selector={(state: RootState) => state.applicationForm[id]}
-    />
-  ),
+  [FieldType.TEXT_FIELD]: ({ id, label }: FieldModel) => {
+    return (
+      <TextField
+        key={id}
+        label={label}
+        onChange={(event) =>
+          setField({ key: id, value: event.currentTarget.value })
+        }
+        selector={(state: RootState) => state.applicationForm[id]}
+      />
+    );
+  },
 } as const;
 
 export const FormGenerator = ({ name, formModel }: FormGeneratorProps) => {
