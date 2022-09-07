@@ -1,3 +1,5 @@
+import { setField } from "../../store/application-form-slice";
+import { RootState } from "../../store/store";
 import { TextField } from "../text-field/text-field";
 
 export const FieldType = { TEXT_FIELD: "text-field" } as const;
@@ -6,8 +8,6 @@ type FieldModel = {
   id: string;
   label: string;
   type: typeof FieldType[keyof typeof FieldType];
-  setField: (fieldId: string, fieldValue: string) => void;
-  getField: (fieldId: string) => string;
 };
 
 type FormGeneratorProps = {
@@ -16,12 +16,14 @@ type FormGeneratorProps = {
 };
 
 const FieldComponents = {
-  [FieldType.TEXT_FIELD]: ({ id, label, setField, getField }: FieldModel) => (
+  [FieldType.TEXT_FIELD]: ({ id, label }: FieldModel) => (
     <TextField
       key={id}
       label={label}
-      onChange={(event) => setField(id, event.currentTarget.value)}
-      value={getField(id)}
+      onChange={(event) =>
+        setField({ key: id, value: event.currentTarget.value })
+      }
+      selector={(state: RootState) => state.applicationForm[id]}
     />
   ),
 } as const;

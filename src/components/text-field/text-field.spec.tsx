@@ -1,15 +1,17 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import React from "react";
 import { TextField } from "./text-field";
 import userEvent from "@testing-library/user-event";
+import { renderWithProviders } from "../../utils/test-utils";
 
 const defaultProps = {
   label: "default-label",
-  onChange: () => {}
+  onChange: () => {},
+  selector: () => "",
 };
 
 const factory = (props?: Partial<React.ComponentProps<typeof TextField>>) =>
-  render(<TextField {...defaultProps} {...props} />);
+  renderWithProviders(<TextField {...defaultProps} {...props} />);
 
 /* A topic of disscussion if such tests are needed since it's just a wrapper for component from component library.
     However if we do have such tests, 
@@ -28,7 +30,7 @@ test("renders input element", () => {
 });
 
 test("renders provided text value", () => {
-  factory({ value: "test-value" });
+  factory({ selector: () => "test-value"});
 
   expect(screen.getByDisplayValue("test-value")).toBeVisible();
 });
@@ -47,7 +49,5 @@ test("fires change callback when value is edited", async () => {
   const inputField = screen.getByLabelText("test-label");
   await user.type(inputField, "new-test-value");
 
-  expect(mockCallback).toHaveBeenLastCalledWith(
-    expect.objectContaining({ target: expect.objectContaining({ value: "new-test-value" }) })
-  );
+  expect(mockCallback).toHaveBeenCalled();
 });

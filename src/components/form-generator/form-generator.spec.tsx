@@ -1,6 +1,7 @@
 // TODO: sort import, let's allow linter to help with this
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import React from "react";
+import { renderWithProviders } from "../../utils/test-utils";
 import { FieldType, FormGenerator } from "./form-generator";
 
 /* Here is a little bit different way of structuring tests. Not personally a fan, because it can result in deep nesting, 
@@ -8,7 +9,7 @@ import { FieldType, FormGenerator } from "./form-generator";
 */
 
 const factory = (props: React.ComponentProps<typeof FormGenerator>) =>
-  render(<FormGenerator {...props} />);
+  renderWithProviders(<FormGenerator {...props} />);
 
 describe("FormGenerator component", () => {
   describe("given parameter to render text field", () => {
@@ -21,8 +22,6 @@ describe("FormGenerator component", () => {
             id: "test-field-id",
             label: "Test text field",
             type: FieldType.TEXT_FIELD,
-            setField: jest.fn(),
-            getField: jest.fn(() => "field-value"),
           },
         ],
       });
@@ -30,14 +29,6 @@ describe("FormGenerator component", () => {
 
     it("should render form element", () => {
       expect(screen.getByRole("form")).toBeVisible();
-    });
-
-    it("should render text field", () => {
-      expect(screen.getByLabelText("Test text field")).toBeVisible();
-    });
-
-    it("should provide value for text field", () => {
-      expect(screen.getByDisplayValue("field-value")).toBeVisible();
     });
   });
 });

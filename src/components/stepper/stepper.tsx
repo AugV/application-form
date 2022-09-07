@@ -1,7 +1,7 @@
-type StepModel = {
+export type StepModel = {
   heading: string;
   content: {
-    component: (props: Record<string, unknown>) => JSX.Element;
+    component: (props: any) => JSX.Element;
     props: Record<string, unknown>;
   };
 };
