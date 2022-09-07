@@ -1,6 +1,7 @@
 import { setField } from "../../store/application-form-slice";
 import { RootState } from "../../store/store";
 import { TextField } from "../text-field/text-field";
+import styles from "./form-generator.module.scss";
 
 export const FieldType = { TEXT_FIELD: "text-field" } as const;
 
@@ -33,9 +34,11 @@ const FieldComponents = {
 export const FormGenerator = ({ name, formModel }: FormGeneratorProps) => {
   return (
     <form name={name}>
-      {formModel.map((fieldModel) => {
-        return FieldComponents[fieldModel.type](fieldModel);
-      })}
+      {formModel.map((fieldModel) => (
+        <div className={styles.fieldContainer}>
+          {FieldComponents[fieldModel.type](fieldModel)}
+        </div>
+      ))}
     </form>
   );
 };

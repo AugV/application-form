@@ -31,6 +31,7 @@ const firstStep: StepModel = {
     },
   },
 };
+
 const secondStep: StepModel = {
   heading: "Contact person",
   content: {
@@ -62,6 +63,7 @@ const secondStep: StepModel = {
     },
   },
 };
+
 function App() {
   const [activeStep, setActiveStep] = useState(0);
   

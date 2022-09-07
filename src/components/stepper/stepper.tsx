@@ -1,3 +1,6 @@
+import { Typography } from "@mui/material";
+import { Button } from "../button/button";
+
 export type StepModel = {
   heading: string;
   content: {
@@ -25,21 +28,19 @@ export const Stepper = ({
   const ContentComponent = currentStep.content.component;
   const contentProps = currentStep.content.props;
   const isFirstStep = activeStep === 0;
-  const isLastStep = activeStep === stepperModel.length-1;
+  const isLastStep = activeStep === stepperModel.length - 1;
 
   return (
     <>
-      {/* TODO: extract heading */}
-      <h2>{currentStep.heading}</h2>
+      <Typography variant="h3" component="h2">{currentStep.heading}</Typography>
 
       <ContentComponent {...contentProps} />
 
-      {/* TODO: extract buttons */}
-      {!isFirstStep && <button onClick={backHandler}>Back</button>}
+      {!isFirstStep && <Button onClick={backHandler}>Back</Button>}
       {isLastStep ? (
-        <button onClick={submitHandler}>Submit</button>
+        <Button onClick={submitHandler}>Submit</Button>
       ) : (
-        <button onClick={nextHandler}>Next</button>
+        <Button onClick={nextHandler}>Next</Button>
       )}
     </>
   );
