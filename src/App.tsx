@@ -4,6 +4,7 @@ import {
   FieldType,
   FormGenerator,
 } from "./components/form-generator/form-generator";
+import styles from "./App.module.scss";
 
 const firstStep: StepModel = {
   heading: "Company",
@@ -66,17 +67,23 @@ const secondStep: StepModel = {
 
 function App() {
   const [activeStep, setActiveStep] = useState(0);
-  
+
   return (
-    <>
-      <Stepper
-        activeStep={activeStep}
-        stepperModel={[firstStep, secondStep]}
-        backHandler={() => setActiveStep(prev => --prev)}
-        nextHandler={() => setActiveStep(prev => ++prev)}
-        submitHandler={() => {}}
-      />
-    </>
+    <main>
+      <head>{/* TODO: add header */}</head>
+
+      <aside>{/* TODO: add side step indicator */}</aside>
+
+      <article className={styles.formSheet}>
+        <Stepper
+          activeStep={activeStep}
+          stepperModel={[firstStep, secondStep]}
+          backHandler={() => setActiveStep((prev) => --prev)}
+          nextHandler={() => setActiveStep((prev) => ++prev)}
+          submitHandler={() => {}}
+        />
+      </article>
+    </main>
   );
 }
 

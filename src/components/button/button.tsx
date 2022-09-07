@@ -6,5 +6,5 @@ type ButtonProps = {
 };
 
 export const Button = ({ onClick, children }: ButtonProps) => {
-  return <MuiButton onClick={onClick}>{children}</MuiButton>;
+  return <MuiButton onClick={onClick} variant="outlined">{children}</MuiButton>;
 };

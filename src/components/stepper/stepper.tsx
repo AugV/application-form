@@ -33,7 +33,7 @@ export const Stepper = ({
   const isLastStep = activeStep === stepperModel.length - 1;
 
   return (
-    <article className={styles.container}>
+    <div className={styles.container}>
       <Typography variant="h5" component="h2">
         {currentStep.heading}
       </Typography>
@@ -56,6 +56,6 @@ export const Stepper = ({
           )}
         </nav>
       </section>
-    </article>
+    </div>
   );
 };
