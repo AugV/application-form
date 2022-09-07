@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import { Button } from "../button/button";
+import styles from "./stepper.module.scss";
 
 export type StepModel = {
   heading: string;
@@ -31,17 +32,23 @@ export const Stepper = ({
   const isLastStep = activeStep === stepperModel.length - 1;
 
   return (
-    <>
-      <Typography variant="h3" component="h2">{currentStep.heading}</Typography>
+    <article className={styles.container}>
+      <Typography variant="h5" component="h2">
+        {currentStep.heading}
+      </Typography>
 
-      <ContentComponent {...contentProps} />
+      <section className={styles.contentContainer}>
+        <ContentComponent {...contentProps} />
 
-      {!isFirstStep && <Button onClick={backHandler}>Back</Button>}
-      {isLastStep ? (
-        <Button onClick={submitHandler}>Submit</Button>
-      ) : (
-        <Button onClick={nextHandler}>Next</Button>
-      )}
-    </>
+        <nav>
+          {!isFirstStep && <Button onClick={backHandler}>Back</Button>}
+          {isLastStep ? (
+            <Button onClick={submitHandler}>Submit</Button>
+          ) : (
+            <Button onClick={nextHandler}>Next</Button>
+          )}
+        </nav>
+      </section>
+    </article>
   );
 };

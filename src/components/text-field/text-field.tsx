@@ -30,5 +30,5 @@ export const TextField = ({
     dispatch(onChange(event))
   }
 
-  return <MuiTextField label={label} value={value} onChange={handleChange} />;
+  return <MuiTextField label={label} value={value} onChange={handleChange} fullWidth={true}/>;
 };
