@@ -1,11 +1,12 @@
-import { screen } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "./App";
 import { renderWithProviders } from "./utils/test-utils";
 
 const factory = () => renderWithProviders(<App />);
 
-// These are top level integration/e2e tests, usually would prefer to do them with Cypress, because it's more "real" environment and interaction
+/* These are top level integration/e2e tests, usually would prefer to do them with Cypress, 
+because it's more similar to real user interaction and environment */
 describe("first step", () => {
   test("renders heading", () => {
     factory();
@@ -30,11 +31,23 @@ describe("first step", () => {
 
     expect(screen.getByLabelText("Country of registration")).toBeVisible();
   });
+
+  test("next button is disabled when some required fields are not enterred", () => {
+    factory();
+
+    expect(screen.getByText("Next")).toBeDisabled();
+  });
 });
 
 describe("second step", () => {
+  // very not unit testy, more of a flow test appropriate for e2e
   const goToSecondStep = async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ skipHover: true });
+
+    await user.type(screen.getByLabelText("Company code"), "test")
+    await user.type(screen.getByLabelText("Company name"), "test")
+    await user.type(screen.getByLabelText("Country of registration"), "test")
+
     const nextButton = screen.getByText("Next");
     await user.click(nextButton);
   };
@@ -70,7 +83,7 @@ describe("second step", () => {
   test("renders email address field", async () => {
     factory();
     await goToSecondStep();
-    
+
     expect(screen.getByLabelText("E-mail address")).toBeVisible();
   });
 });

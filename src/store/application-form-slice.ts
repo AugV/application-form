@@ -13,7 +13,11 @@ const validationMessages = {
 
 type ApplicationFormState = {
   [form: string]: {
-    [key: string]: { value: string; errorMessage?: string };
+    [key: string]: {
+      value: string;
+      errorMessage?: string;
+      isInvalid?: boolean;
+    };
   };
 };
 
@@ -31,6 +35,10 @@ export const applicationFormSlice = createSlice({
   initialState,
   reducers: {
     createField: (state, action: PayloadAction<FieldMutationAction>) => {
+      const isInvalid = action.payload.validations?.find((validationKey) => {
+        return !isValid[validationKey](action.payload.value);
+      });
+
       const formState = state[action.payload.form];
       if (!formState) {
         state[action.payload.form] = {};
@@ -40,11 +48,11 @@ export const applicationFormSlice = createSlice({
       if (!fieldState) {
         state[action.payload.form][action.payload.key] = {
           value: action.payload.value,
+          isInvalid: !!isInvalid,
         };
       }
     },
     setField: (state, action: PayloadAction<FieldMutationAction>) => {
-      
       const failedValidationKey = action.payload.validations?.find(
         (validationKey) => {
           return !isValid[validationKey](action.payload.value);
@@ -56,6 +64,7 @@ export const applicationFormSlice = createSlice({
       state[action.payload.form][action.payload.key] = {
         value: action.payload.value,
         errorMessage,
+        isInvalid: !!failedValidationKey,
       };
     },
   },

@@ -33,9 +33,10 @@ export const Field = ({
         key: fieldId,
         // TODO: here to set initial value
         value: "",
+        validations,
       })
     );
-  }, []);
+  }, [dispatch, formId, fieldId, validations]);
 
   const { value, errorMessage } = useSelector(
     (state: RootState) => state.applicationForm?.[formId]?.[fieldId]

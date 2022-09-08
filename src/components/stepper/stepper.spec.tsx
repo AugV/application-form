@@ -125,3 +125,13 @@ test("renders second step content when second step is active", () => {
 
   expect(screen.getByText("second step component 2-test-props")).toBeVisible();
 });
+
+test("next button is disabled when prevent next step is provided", () => {
+  factory({
+    activeStep: 0,
+    preventNextStep: true,
+    stepperModel: mockStepsModel,
+  });
+
+  expect(screen.getByText("Next")).toBeDisabled();
+});

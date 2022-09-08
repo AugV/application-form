@@ -7,13 +7,14 @@ export type StepModel = {
   heading: string;
   content: {
     component: (props: any) => JSX.Element;
-    props: Record<string, unknown>;
+    props: Record<string, any>;
   };
 };
 
 type StepperProps = {
   activeStep: number;
   nextHandler: () => void;
+  preventNextStep?: boolean;
   backHandler: () => void;
   submitHandler: () => void;
   stepperModel: StepModel[];
@@ -22,6 +23,7 @@ type StepperProps = {
 export const Stepper = ({
   activeStep,
   nextHandler,
+  preventNextStep,
   backHandler,
   submitHandler,
   stepperModel,
@@ -50,9 +52,9 @@ export const Stepper = ({
         >
           {!isFirstStep && <Button onClick={backHandler}>Back</Button>}
           {isLastStep ? (
-            <Button onClick={submitHandler}>Submit</Button>
+            <Button onClick={submitHandler} disabled={preventNextStep}>Submit</Button>
           ) : (
-            <Button onClick={nextHandler}>Next</Button>
+            <Button onClick={nextHandler} disabled={preventNextStep}>Next</Button>
           )}
         </nav>
       </section>

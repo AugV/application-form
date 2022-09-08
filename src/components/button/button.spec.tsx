@@ -22,7 +22,7 @@ test("renders button", () => {
 });
 
 test("renders button label", () => {
-  factory();
+  factory({ children: "button label" });
 
   expect(screen.getByText("button label")).toBeVisible();
 });
@@ -30,10 +30,16 @@ test("renders button label", () => {
 test("fires click even when clicked", async () => {
   const user = userEvent.setup();
   const mockOnClick = jest.fn();
-  factory();
+  factory({ onClick: mockOnClick });
 
   const button = screen.getByRole("button");
   await user.click(button);
 
   expect(mockOnClick).toHaveBeenCalled();
+});
+
+test("is disabled", () => {
+  factory({ disabled: true });
+
+  expect(screen.getByRole("button")).toBeDisabled();
 });

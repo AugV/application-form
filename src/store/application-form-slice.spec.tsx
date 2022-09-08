@@ -14,7 +14,7 @@ test("creates field in store", () => {
         value: "new-field-value",
       })
     )
-  ).toEqual({ "form-name": { "new-field": { value: "new-field-value" } } });
+  ).toEqual({ "form-name": { "new-field": { value: "new-field-value", isInvalid: false } } });
 });
 
 test("updates field value", () => {
@@ -23,7 +23,7 @@ test("updates field value", () => {
       { "form-name": { "existing-field": { value: "old-value" } } },
       setField({ form: "form-name", key: "existing-field", value: "new-value" })
     )
-  ).toEqual({ "form-name": { "existing-field": { value: "new-value" } } });
+  ).toEqual({ "form-name": { "existing-field": { value: "new-value", isInvalid: false } } });
 });
 
 test("sets error message, when field doesn't pass REQUIRED validation", () => {
@@ -32,5 +32,5 @@ test("sets error message, when field doesn't pass REQUIRED validation", () => {
       { "form-name": { "existing-field": { value: "old-value" } } },
       setField({ form: "form-name", key: "existing-field", value: "", validations: [Validation.REQUIRED] })
     )
-  ).toEqual({ "form-name": { "existing-field": { value: "", errorMessage: "This field is required" } } });
+  ).toEqual({ "form-name": { "existing-field": { value: "", errorMessage: "This field is required", isInvalid: true } } });
 });
