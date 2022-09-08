@@ -1,5 +1,6 @@
 import { createTheme } from "@mui/material";
 
+// brand colors & font
 export const muiTheme = createTheme({
   palette: {
     primary: {

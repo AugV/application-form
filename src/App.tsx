@@ -70,7 +70,7 @@ function App() {
 
   return (
     <main>
-      <head>{/* TODO: add header */}</head>
+      <header>{/* TODO: add header */}</header>
 
       <aside>{/* TODO: add side step indicator */}</aside>
 

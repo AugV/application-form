@@ -7,7 +7,7 @@ import { renderWithProviders } from "../../utils/test-utils";
 const defaultProps = {
   label: "default-label",
   onChange: () => ({ payload: { key: "", value: "" }, type: "" }),
-  selector: () => "",
+  value: "",
 };
 
 const factory = (props?: Partial<React.ComponentProps<typeof TextField>>) =>
@@ -30,7 +30,7 @@ test("renders input element", () => {
 });
 
 test("renders provided text value", () => {
-  factory({ selector: () => "test-value" });
+  factory({ value: "test-value" });
 
   expect(screen.getByDisplayValue("test-value")).toBeVisible();
 });

@@ -1,5 +1,4 @@
-import { setField } from "../../store/application-form-slice";
-import { RootState } from "../../store/store";
+import { Field } from "../field/field";
 import { TextField } from "../text-field/text-field";
 import styles from "./form-generator.module.scss";
 
@@ -16,27 +15,21 @@ type FormGeneratorProps = {
   formModel: FieldModel[];
 };
 
-const FieldComponents = {
-  [FieldType.TEXT_FIELD]: ({ id, label }: FieldModel) => {
-    return (
-      <TextField
-        key={id}
-        label={label}
-        onChange={(event) =>
-          setField({ key: id, value: event.currentTarget.value })
-        }
-        selector={(state: RootState) => state.applicationForm[id]}
-      />
-    );
-  },
+const FieldComponentMap = {
+  [FieldType.TEXT_FIELD]: TextField,
 } as const;
 
 export const FormGenerator = ({ name, formModel }: FormGeneratorProps) => {
   return (
     <form name={name}>
       {formModel.map((fieldModel) => (
-        <div className={styles.fieldContainer}>
-          {FieldComponents[fieldModel.type](fieldModel)}
+        <div className={styles.fieldContainer} key={fieldModel.id}>
+          <Field
+            formId={name}
+            fieldId={fieldModel.id}
+            inputProps={fieldModel}
+            component={FieldComponentMap[fieldModel.type]}
+          />
         </div>
       ))}
     </form>

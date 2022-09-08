@@ -6,15 +6,22 @@ test("default state is empty", () => {
 
 test("sets field in store", () => {
   expect(
-    reducer(undefined, setField({ key: "new-field", value: "new-field-value" }))
-  ).toEqual({ "new-field": "new-field-value" });
+    reducer(
+      undefined,
+      setField({
+        form: "form-name",
+        key: "new-field",
+        value: "new-field-value",
+      })
+    )
+  ).toEqual({ "form-name": { "new-field": "new-field-value" } });
 });
 
 test("updates field value", () => {
   expect(
     reducer(
-      { "existing-field": "old-value" },
-      setField({ key: "existing-field", value: "new-value" })
+      { "form-name": { "existing-field": "old-value" } },
+      setField({ form: "form-name", key: "existing-field", value: "new-value" })
     )
-  ).toEqual({ "existing-field": "new-value" });
+  ).toEqual({ "form-name": { "existing-field": "new-value" } });
 });
