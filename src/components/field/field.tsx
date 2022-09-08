@@ -17,6 +17,7 @@ type FieldProps = {
   component: (props: any) => JSX.Element;
 };
 
+// This layer is for connecting UI to Redux
 export const Field = ({
   formId,
   fieldId,

@@ -101,7 +101,9 @@ function App() {
           stepperModel={steps}
           backHandler={() => setActiveStep((prev) => --prev)}
           nextHandler={() => setActiveStep((prev) => ++prev)}
-          submitHandler={() => {}}
+          submitHandler={() => {
+            // TODO: submit form
+          }}
         />
       </article>
     </main>
