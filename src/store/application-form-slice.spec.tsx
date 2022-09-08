@@ -1,4 +1,4 @@
-import reducer, { createField, setField } from "./application-form-slice";
+import reducer, { createField, setField, Validation } from "./application-form-slice";
 
 test("default state is empty", () => {
   expect(reducer(undefined, { type: undefined })).toEqual({});
@@ -14,14 +14,23 @@ test("creates field in store", () => {
         value: "new-field-value",
       })
     )
-  ).toEqual({ "form-name": { "new-field": "new-field-value" } });
+  ).toEqual({ "form-name": { "new-field": { value: "new-field-value" } } });
 });
 
 test("updates field value", () => {
   expect(
     reducer(
-      { "form-name": { "existing-field": "old-value" } },
+      { "form-name": { "existing-field": { value: "old-value" } } },
       setField({ form: "form-name", key: "existing-field", value: "new-value" })
     )
-  ).toEqual({ "form-name": { "existing-field": "new-value" } });
+  ).toEqual({ "form-name": { "existing-field": { value: "new-value" } } });
+});
+
+test("sets error message, when field doesn't pass REQUIRED validation", () => {
+  expect(
+    reducer(
+      { "form-name": { "existing-field": { value: "old-value" } } },
+      setField({ form: "form-name", key: "existing-field", value: "", validations: [Validation.REQUIRED] })
+    )
+  ).toEqual({ "form-name": { "existing-field": { value: "", errorMessage: "This field is required" } } });
 });
