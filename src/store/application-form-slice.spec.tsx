@@ -1,14 +1,14 @@
-import reducer, { setField } from "./application-form-slice";
+import reducer, { createField, setField } from "./application-form-slice";
 
 test("default state is empty", () => {
   expect(reducer(undefined, { type: undefined })).toEqual({});
 });
 
-test("sets field in store", () => {
+test("creates field in store", () => {
   expect(
     reducer(
       undefined,
-      setField({
+      createField({
         form: "form-name",
         key: "new-field",
         value: "new-field-value",

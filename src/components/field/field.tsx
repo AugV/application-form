@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setField } from "../../store/application-form-slice";
+import { createField, setField } from "../../store/application-form-slice";
 import { RootState } from "../../store/store";
 
 type FieldProps = {
@@ -22,18 +22,19 @@ export const Field = ({
 
   useEffect(() => {
     dispatch(
-      setField({
+      createField({
         form: formId,
         key: fieldId,
         // TODO: here to set initial value
-        value: "test",
+        value: "",
       })
     );
   }, []);
 
-  const value = useSelector(
-    (state: RootState) => state.applicationForm?.[formId]?.[fieldId]
-  ) || "";
+  const value =
+    useSelector(
+      (state: RootState) => state.applicationForm?.[formId]?.[fieldId]
+    ) || "";
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch(
@@ -47,7 +48,7 @@ export const Field = ({
 
   return (
     <>
-      <InputComponent {...inputProps} value={value} onChange={handleChange}/>
+      <InputComponent {...inputProps} value={value} onChange={handleChange} />
     </>
   );
 };
