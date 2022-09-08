@@ -26,6 +26,10 @@ describe("FormGenerator component", () => {
       });
     });
 
+    it("should render text input field", () => {
+      expect(screen.getByRole("textbox")).toBeVisible();
+    })
+
     it("should render form element", () => {
       expect(screen.getByRole("form")).toBeVisible();
     });
