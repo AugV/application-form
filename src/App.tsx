@@ -5,6 +5,7 @@ import {
   FormGenerator,
 } from "./components/form-generator/form-generator";
 import styles from "./App.module.scss";
+import { Validation } from "./store/application-form-slice";
 
 const firstStep: StepModel = {
   heading: "Company",
@@ -17,6 +18,7 @@ const firstStep: StepModel = {
           id: "company-code-field",
           label: "Company code",
           type: FieldType.TEXT_FIELD,
+          validations: [Validation.REQUIRED]
         },
         {
           id: "company-name",

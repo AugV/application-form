@@ -51,3 +51,9 @@ test("fires change callback when value is edited", async () => {
 
   expect(mockCallback).toHaveBeenCalled();
 });
+
+test("renders error message", () => {
+  factory({ errorMessage: "error message" });
+
+  expect(screen.getByText("error message")).toBeVisible()
+})

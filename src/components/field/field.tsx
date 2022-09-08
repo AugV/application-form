@@ -1,13 +1,18 @@
 import React, { ChangeEvent } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createField, setField } from "../../store/application-form-slice";
+import {
+  createField,
+  setField,
+  Validation,
+} from "../../store/application-form-slice";
 import { RootState } from "../../store/store";
 
 type FieldProps = {
   formId: string;
   fieldId: string;
   inputProps: Record<string, unknown>;
+  validations?: [typeof Validation[keyof typeof Validation]];
   // TODO: narrower type
   component: (props: any) => JSX.Element;
 };
@@ -15,6 +20,7 @@ type FieldProps = {
 export const Field = ({
   formId,
   fieldId,
+  validations,
   inputProps,
   component: InputComponent,
 }: FieldProps) => {
@@ -31,10 +37,9 @@ export const Field = ({
     );
   }, []);
 
-  const value =
-    useSelector(
-      (state: RootState) => state.applicationForm?.[formId]?.[fieldId]
-    ) || "";
+  const { value, errorMessage } = useSelector(
+    (state: RootState) => state.applicationForm?.[formId]?.[fieldId]
+  ) || { value: "" };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch(
@@ -42,13 +47,19 @@ export const Field = ({
         form: formId,
         key: fieldId,
         value: event.currentTarget.value,
+        validations,
       })
     );
   };
 
   return (
     <>
-      <InputComponent {...inputProps} value={value} onChange={handleChange} />
+      <InputComponent
+        {...inputProps}
+        value={value}
+        onChange={handleChange}
+        errorMessage={errorMessage}
+      />
     </>
   );
 };

@@ -1,3 +1,4 @@
+import { Validation } from "../../store/application-form-slice";
 import { Field } from "../field/field";
 import { TextField } from "../text-field/text-field";
 import styles from "./form-generator.module.scss";
@@ -7,6 +8,7 @@ export const FieldType = { TEXT_FIELD: "text-field" } as const;
 type FieldModel = {
   id: string;
   label: string;
+  validations?: [typeof Validation[keyof typeof Validation]];
   type: typeof FieldType[keyof typeof FieldType];
 };
 
@@ -27,6 +29,7 @@ export const FormGenerator = ({ name, formModel }: FormGeneratorProps) => {
           <Field
             formId={name}
             fieldId={fieldModel.id}
+            validations={fieldModel.validations}
             inputProps={fieldModel}
             component={FieldComponentMap[fieldModel.type]}
           />

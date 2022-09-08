@@ -44,12 +44,12 @@ export const applicationFormSlice = createSlice({
       }
     },
     setField: (state, action: PayloadAction<FieldMutationAction>) => {
+      
       const failedValidationKey = action.payload.validations?.find(
         (validationKey) => {
           return !isValid[validationKey](action.payload.value);
         }
       );
-
       const errorMessage =
         failedValidationKey && validationMessages[failedValidationKey];
 

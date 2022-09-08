@@ -4,8 +4,11 @@ import { ChangeEvent } from "react";
 
 type TextFieldProps = {
   label: string;
-  value: string,
-  onChange: (event: ChangeEvent<HTMLInputElement>) => PayloadAction<{key: string, value: string}>;
+  value: string;
+  onChange: (
+    event: ChangeEvent<HTMLInputElement>
+  ) => PayloadAction<{ key: string; value: string }>;
+  errorMessage?: string;
 };
 
 /* Why not use MuiTextField directly? 
@@ -19,7 +22,17 @@ export const TextField = ({
   label,
   onChange,
   value,
+  errorMessage,
 }: TextFieldProps) => {
-  
-  return <MuiTextField label={label} value={value} onChange={onChange} fullWidth={true}/>;
+
+  return (
+    <MuiTextField
+      label={label}
+      value={value}
+      onChange={onChange}
+      fullWidth={true}
+      error={!!errorMessage}
+      helperText={errorMessage}
+    />
+  );
 };
